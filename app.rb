@@ -1,6 +1,7 @@
 require "sinatra"
 require "sinatra/reloader"
 require "http"
+require "json"
 
 get("/") do
   api_url = "https://api.exchangerate.host/list?access_key=#{ENV["EXCHANGE_RATE_KEY"]}"
@@ -10,6 +11,15 @@ get("/") do
   raw_data_string = raw_data.to_s
 
   parsed_data = JSON.parse(raw_data_string)
+
+  @symbols = parsed_data.fetch("currencies")
+
+  @abbreviations = @symbols.keys
+
+  @abbreviations.each do
+    
+
+
 
 
   erb(:homepage)
@@ -26,6 +36,5 @@ get("/:from_currency/:to_currency") do
   @destination_currency = params.fetch("to_currency")
 
   api_url = "https://api.exchangerate.host/list?access_key=#{ENV["EXCHANGE_RATE_KEY"]}&from=#{@original_currency}&to=#{@destination_currency}&amount=1"
-
 
 end
