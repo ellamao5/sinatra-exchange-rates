@@ -16,11 +16,6 @@ get("/") do
 
   @abbreviations = @symbols.keys
 
-  @abbreviations.each do
-    
-
-
-
 
   erb(:homepage)
 end
